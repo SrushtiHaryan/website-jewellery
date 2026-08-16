@@ -17,17 +17,22 @@ async function serverGet<T>(
   path: string,
   opts: { revalidate?: number } = {}
 ): Promise<ApiEnvelope<T>> {
-  const res = await fetch(`${API_URL}${path}`, {
-    next: { revalidate: opts.revalidate ?? 120 },
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (!res.ok) {
-    if (res.status === 404) {
-      return { success: false, data: null as unknown as T };
+  const empty = { success: false, data: null as unknown as T };
+  try {
+    const res = await fetch(`${API_URL}${path}`, {
+      next: { revalidate: opts.revalidate ?? 120 },
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!res.ok) {
+      // 404 (and any other failure) → empty result. Never throw, so a build or
+      // page render can't crash if the API is briefly unavailable (e.g. a
+      // free-tier backend waking from sleep). ISR revalidation fills it in.
+      return empty;
     }
-    throw new Error(`API ${path} failed: ${res.status}`);
+    return (await res.json()) as ApiEnvelope<T>;
+  } catch {
+    return empty;
   }
-  return res.json();
 }
 
 export interface ProductQuery {
