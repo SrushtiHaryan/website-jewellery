@@ -1,0 +1,36 @@
+# Render Blueprint for the Aurelia backend API.
+# In Render: New → Blueprint → connect this repo. It reads this file.
+# You'll be prompted to fill the secret env vars marked `sync: false`.
+services:
+  - type: web
+    name: aurelia-api
+    runtime: node
+    rootDir: backend
+    plan: free
+    # --include=dev ensures TypeScript (a devDependency) is available for `tsc`
+    # even though NODE_ENV=production would otherwise skip dev dependencies.
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d

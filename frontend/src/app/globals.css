@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-cocoa;
+  }
+
+  ::selection {
+    @apply bg-champagne text-cocoa;
+  }
+}
+
+@layer components {
+  .container-luxe {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-luxe text-gold;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium
+      transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory;
+  }
+  .btn-primary {
+    @apply btn bg-cocoa px-7 py-3 text-ivory hover:bg-espresso;
+  }
+  .btn-gold {
+    @apply btn bg-gold px-7 py-3 text-ivory hover:bg-gold-deep;
+  }
+  .btn-outline {
+    @apply btn border border-cocoa/30 px-7 py-3 text-cocoa hover:border-cocoa hover:bg-cocoa hover:text-ivory;
+  }
+  .btn-ghost {
+    @apply btn px-4 py-2 text-cocoa hover:bg-cream;
+  }
+  /* Square icon-only button — no horizontal padding so the icon stays centred
+     and visible at a fixed width and height (set via sizing utilities). */
+  .icon-btn {
+    @apply btn inline-flex items-center justify-center rounded-full p-0 text-cocoa
+      transition hover:bg-cream disabled:opacity-40;
+  }
+
+  .card {
+    @apply rounded-2xl border border-champagne/50 bg-white shadow-card;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-champagne bg-white px-4 py-2.5 text-sm text-ink
+      placeholder:text-clay/60 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-cocoa;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0
+      after:bg-gold after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
+
+/* Hide scrollbars on horizontal scrollers while keeping scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
