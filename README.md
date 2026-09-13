@@ -200,9 +200,33 @@ creation + cart clearing + inventory decrement), and role-based authorization.
 
 ---
 
+## Deployment (free)
+
+Free stack: **Vercel** (frontend) + **Render** (backend) + **MongoDB Atlas** (DB) +
+**Cloudinary** (images). A `render.yaml` blueprint is included for the backend.
+
+1. **Push to GitHub** — create an empty repo, then from the project root:
+   ```bash
+   git remote add origin https://github.com/<you>/website-jewellery.git
+   git push -u origin main
+   ```
+2. **Backend → Render** — New → Blueprint → select the repo (it reads `render.yaml`).
+   Fill the prompted secrets: `MONGODB_URI`, `CLIENT_URL`, and the three
+   `CLOUDINARY_*` keys (JWT secrets auto-generate). You get `https://<api>.onrender.com`;
+   check `/api/health`. Keep Atlas Network Access at `0.0.0.0/0` (Render has no fixed IP).
+3. **Frontend → Vercel** — Import the repo, set **Root Directory = `frontend`**, and add
+   env vars `NEXT_PUBLIC_API_URL=https://<api>.onrender.com/api` and
+   `NEXT_PUBLIC_SITE_URL=https://<app>.vercel.app`. Deploy.
+4. **Link** — set the backend's `CLIENT_URL` to the Vercel URL (CORS also auto-allows
+   any `*.vercel.app`).
+
+> Render's free tier sleeps after ~15 min idle (first request ~50s to wake). Optionally
+> keep it warm with a free pinger (e.g. cron-job.org) hitting `/api/health`.
+
+---
+
 ## Roadmap (future enhancements)
 
-- Cloudinary image uploads from the admin (currently image URLs).
 - Razorpay live integration (the payment abstraction is already Razorpay-ready).
 - Transactional email via SMTP/Nodemailer (currently logged to console).
 - Coupons, gift cards, loyalty points, recently-viewed, abandoned-cart emails.
