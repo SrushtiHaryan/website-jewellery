@@ -26,10 +26,10 @@ export function CollectionShowcase({ collections }: { collections: Collection[] 
           title="Edits for every occasion"
           description="From bridal grandeur to everyday elegance — collections crafted around the moments that matter."
         />
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="mt-10 grid gap-4 lg:h-[600px] lg:grid-cols-2">
           {/* Large hero collection */}
           <CollectionCard collection={hero} large />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:h-full lg:auto-rows-fr lg:grid-cols-1">
             {rest.map((c) => (
               <CollectionCard key={c._id} collection={c} />
             ))}
@@ -44,7 +44,7 @@ function CollectionCard({ collection, large }: { collection: Collection; large?:
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className={`group relative overflow-hidden ${large ? 'aspect-[4/5] lg:aspect-auto lg:h-full' : 'aspect-[16/9] lg:aspect-auto'}`}
+      className={`group relative overflow-hidden ${large ? 'aspect-[4/5] lg:aspect-auto lg:h-full' : 'aspect-[16/9] lg:aspect-auto lg:h-full'}`}
     >
       <Image
         src={collection.image?.url && !collection.image.url.includes('picsum.photos')
