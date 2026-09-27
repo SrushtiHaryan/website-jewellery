@@ -4,6 +4,13 @@ import { ArrowRight } from 'lucide-react';
 import type { Collection } from '@/lib/types';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 
+const collectionImages: Record<string, string> = {
+  'bridal-collection': '/images/aurelia-bridal.jpg',
+  'festive-collection': '/images/aurelia-earrings.jpg',
+  'everyday-elegance': '/images/aurelia-rings.jpg',
+  'royal-collection': '/images/aurelia-craft.jpg',
+};
+
 export function CollectionShowcase({ collections }: { collections: Collection[] }) {
   const featured = collections.filter((c) => c.isFeatured).slice(0, 4);
   const list = (featured.length > 0 ? featured : collections).slice(0, 4);
@@ -37,10 +44,12 @@ function CollectionCard({ collection, large }: { collection: Collection; large?:
   return (
     <Link
       href={`/collections/${collection.slug}`}
-      className={`group relative overflow-hidden rounded-2xl ${large ? 'aspect-[4/5] lg:aspect-auto lg:h-full' : 'aspect-[16/9] lg:aspect-auto'}`}
+      className={`group relative overflow-hidden ${large ? 'aspect-[4/5] lg:aspect-auto lg:h-full' : 'aspect-[16/9] lg:aspect-auto'}`}
     >
       <Image
-        src={collection.image?.url ?? `https://picsum.photos/seed/aurelia-col-${collection.slug}/900/700`}
+        src={collection.image?.url && !collection.image.url.includes('picsum.photos')
+          ? collection.image.url
+          : (collectionImages[collection.slug] ?? '/images/aurelia-craft.jpg')}
         alt={collection.image?.alt ?? collection.name}
         fill
         sizes={large ? '(max-width: 1024px) 100vw, 50vw' : '(max-width: 1024px) 50vw, 25vw'}
