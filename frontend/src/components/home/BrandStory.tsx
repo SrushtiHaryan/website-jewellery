@@ -6,18 +6,18 @@ export function BrandStory() {
     <section className="container-luxe py-20">
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div className="relative order-2 grid grid-cols-2 gap-4 md:order-1">
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-none">
             <Image
-              src="https://picsum.photos/seed/aurelia-craft-1/600/800"
+              src="/images/aurelia-detail.jpg"
               alt="A craftsperson setting Kundan stones by hand"
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
               className="object-cover"
             />
           </div>
-          <div className="relative mt-8 aspect-[3/4] overflow-hidden rounded-2xl">
+          <div className="relative mt-8 aspect-[3/4] overflow-hidden rounded-none">
             <Image
-              src="https://picsum.photos/seed/aurelia-craft-2/600/800"
+              src="/images/aurelia-craft.jpg"
               alt="Detail of finished gold jewellery"
               fill
               sizes="(max-width: 768px) 50vw, 25vw"
